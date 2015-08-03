@@ -1,0 +1,8 @@
+스프링의 4대 특징
+D - DI = IoC
+O - ORM (마이바티스)
+P - POJO
+A - AOP
++
+R - RESTful
+A - Ajax

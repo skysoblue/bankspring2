@@ -1,0 +1,12 @@
+@ResponseBody 와 Jackson 이용하여 JSON 사용하기
+
+@ResponseBody 란 ?
+
+메서드에 @ResponseBody 가 되어 있으면
+return 되는 값은 value 를 통해서
+출력되는 것이 아니라 
+HTTP Response Body 에 직접 입력되게 됨.
+
+MessageConverter 의 종류에는 5가지가 있는데
+그 중 MappingJacksonHttpMessageConverter 를 사용한다.
+ 
