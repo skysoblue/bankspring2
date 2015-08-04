@@ -5,37 +5,28 @@
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <c:set var="context" value="${root}/resources"></c:set>
 
-		<div class="content">
-			<div>
-			<br />
-			<ul class="tabKey" style="width:1000px;">
-				<li class="depth" style="width:32%;text-align: center;border:1px solid black">
-					<a href="javascript:void(0);" style="width: 98%">방명록</a>
-					<div > 
-						
-					 </div>
-				</li>
-				<li class="depth" style="width:32%;text-align: center;border:1px solid black">
-					<a href="javascript:void(1)"  style="width: 98%">답글게시판</a>
-					<div > 2 </div>
-				</li>
-				<li class="depth" style="width:32%;text-align: center;border:1px solid black">
-					<a href="javascript:void(2)"  style="width: 98%">자료실</a>
-					<div > 3 </div>
-				</li>
-			</ul>
-				
-				
-				<br /><br /><br /><br />
-				
-				</div>
-			</div>
-	
-
-<script src="${context}/js/tabKey.js"></script>
-<script src="${context}/js/magnific-popup.js"></script>
+<div id="box"></div>
 <script type="text/javascript">
-	$(function() {
-		tabKey.tab();
+$(function() {
+	$.ajax({
+		type : 'GET',
+		url : '${root}/article/search/hong/1',
+		dataType : 'json',
+		contentType : 'application/json',
+		success : function(data) {
+			var table = '<table class="tab">';
+			table += '<tr><th>글번호</th><th>ID</th><th>이름</th><th>제목</th><th>등록일</th></tr>';
+			$.each(data,function(){
+				table += '<tr>';
+				table += '<td>'+this.artSeq+'</td><td>'+this.userid+
+				'</td><td>'+this.name+'</td><td>'+this.title+'</td><td>'+this.postingDate+'</td>';
+				table += '</tr>';
+			});
+			table += '</table>';
+			$('#box').html(table);
+			
+		}
 	});
+});
 </script>
+

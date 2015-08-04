@@ -67,21 +67,21 @@ public class MemberController {
 		logger.info("회원가입 아이디={}", member.getUserid());
 		int joinOk = memberService.joinMember(member);
 		logger.info("회원가입 성공여부={}", joinOk);
-		return "home/frame";
+		return "home/main.tiles";
 	}
 	@RequestMapping("/logout.do")
 	public String logout(@ModelAttribute("user") MemberDto user,
 			SessionStatus status){
 		logger.info("로그아웃 처리");
 		status.setComplete(); // 세션을 비우고 로그아웃 처리
-		return "home/frame";
+		return "home/main.tiles";
 	}
 	@RequestMapping("/detail.do")
 	public String detail(@ModelAttribute("user") MemberDto user,
 			Model model){
 		logger.info("상세페이지 이동");
 		model.addAttribute("member",user);
-		return "member/detail";
+		return "member/detail.tiles";
 	}
 	@RequestMapping("/search.do")
 	public String search(@RequestParam("userid")String userid,
@@ -90,14 +90,14 @@ public class MemberController {
 		String searchKey = "userid",searchVal = userid;
 		member = memberService.memberDetail(CommandFactory.detail(searchKey, searchVal));
 		model.addAttribute("member",member);
-		return "/member/detail";
+		return "/member/detail.tiles";
 	}
 	@RequestMapping(value="/update.do",method=RequestMethod.GET)
 	public String updateForm(@ModelAttribute("user") MemberDto user,
 			Model model){
 		logger.info("수정페이지 이동");
 		model.addAttribute("member",user);
-		return "member/update";
+		return "member/update.tiles";
 	}
 
 	

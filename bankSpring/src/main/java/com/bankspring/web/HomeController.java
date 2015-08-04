@@ -16,6 +16,6 @@ public class HomeController {
 	@RequestMapping(value="/main.do")
 	public String home(Model model){
 		logger.info("Home컨트롤러 : home");
-		return "home/frame.tiles";
+		return "home/main.tiles";
 	}
 }

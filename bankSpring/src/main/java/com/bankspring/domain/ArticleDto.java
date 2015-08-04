@@ -9,10 +9,20 @@ public class ArticleDto {
 	private int thmSeq;
 	private String userid;
 	private int bookSeq;
-	private Date postingDate;
+	private String postingDate;
 	private int readCnt;
 	private String title;
 	private String content;
+	private String name;
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getArtSeq() {
 		return artSeq;
 	}
@@ -37,10 +47,11 @@ public class ArticleDto {
 	public void setBookSeq(int bookSeq) {
 		this.bookSeq = bookSeq;
 	}
-	public Date getPostingDate() {
+	
+	public String getPostingDate() {
 		return postingDate;
 	}
-	public void setPostingDate(Date postingDate) {
+	public void setPostingDate(String postingDate) {
 		this.postingDate = postingDate;
 	}
 	public int getReadCnt() {
@@ -61,5 +72,11 @@ public class ArticleDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	@Override
+	public String toString() {
+		return "ArticleDto [artSeq=" + artSeq + ", thmSeq=" + thmSeq + ", userid=" + userid + ", bookSeq=" + bookSeq
+				+ ", postingDate=" + postingDate + ", readCnt=" + readCnt + ", title=" + title + ", content=" + content
+				+ "]";
+	}
+	// ALT + SHIFT + S + generate..toString
 }
