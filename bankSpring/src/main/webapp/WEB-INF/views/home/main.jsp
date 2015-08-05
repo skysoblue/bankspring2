@@ -5,6 +5,6 @@
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <c:set var="context" value="${root}/resources"></c:set>
 	<div id="box"></div>
-<script src="${context}/js/magnific-popup.js"></script>
+
 
 

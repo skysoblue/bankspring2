@@ -1,6 +1,7 @@
 /**
  * 
  */
+document.write('<div id="foo"></div>');
 var member = {
 	nochk : function (url) {
 	    alert("동의하지 않으면 가입하실 수 없습니다");

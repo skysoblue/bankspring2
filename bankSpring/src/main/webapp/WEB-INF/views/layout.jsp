@@ -35,6 +35,10 @@
 	<div id="footer">
 			<tiles:insertAttribute name="footer"/>
 		</div>
+		
+<script src="${context}/js/article.js"></script>		
+<script src="${context}/js/magnific-popup.js"></script>		
+<script src="${context}/js/member.js"></script>		
 </body>
 </html>	
 

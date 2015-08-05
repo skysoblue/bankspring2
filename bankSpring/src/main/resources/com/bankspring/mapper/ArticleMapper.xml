@@ -5,7 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.bankspring.mapper.ArticleMapper">
     
     <insert id="insert" parameterType="Article">
-       
+       insert into Article(ART_SEQ, THM_SEQ, USERID, POSTING_DATE, READ_CNT, TITLE,CONTENT) 
+        values(
+         seq.nextval,#{thmSeq},#{userid},sysdate,#{readCnt},#{title},#{content}
+        )
     </insert>
     
     <update id="update" parameterType="Article" >

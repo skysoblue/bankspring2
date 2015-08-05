@@ -23,10 +23,23 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#"> 회원관리 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">도서관리</a></li>
-        <li><a href="#">통계보기</a></li>
-        <li><a href="#">회사정보</a></li>
+        <li class="active"><a href="#"> 내 서재 <span class="sr-only">(current)</span></a></li>
+        <li><a href="#" id="userReview">도서리뷰</a></li>
+        <li><a href="#" id="userBbs">게시판</a></li>
+        <li><a href="#" id="userVisitor">방명록</a></li>
+        <li>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false">
+						글쓰기 <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" id="writeReview">도서리뷰</a></li>
+						<li><a href="#" id="writeBbs">게시판</a></li>
+						<li><a href="#" id="writeVisitor">방명록</a></li>
+					</ul></li>
+			</ul>
+		</li>
       </ul>
      
       <ul class="nav navbar-nav navbar-right">

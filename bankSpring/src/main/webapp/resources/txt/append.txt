@@ -1,0 +1,5 @@
+	$('<div id="foo">').appendTo($('.box').empty());
+	$('#foo').html('
+	<div></div>
+	');
+	
