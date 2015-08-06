@@ -19,19 +19,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <select id="detail" resultType="Article" parameterType="Command">
-     
-    </select>
-    
-    <select id="search" resultType="Article" parameterType="Command" >
-       select 
-       t.*
-        from (
-        	select rownum as seq, 
+     	select  
         	a.art_seq as artSeq, 
 			a.thm_seq as thmSeq,  
 			a.userid  as userid ,  
 			a.book_seq as bookSeq, 
-			to_char(a.posting_date,'yyyy-mm-dd hh:mi:ss') as postingDate, 
+			to_char(a.posting_date,'yyyy-mm-dd hh24:mi:ss') as postingDate, 
 			a.read_cnt as readCnt, 
 			a.title as title, 
 			a.content as content,
@@ -39,26 +32,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        		 from Article a join Member m 
        		 on a.userid = m.userid 
        		 and a.userid = #{searchVal}
-       		 and a.thm_seq = #{theme} ) t
-        where seq between #{start} and #{end}
-        order by artSeq desc
+       		
+       		 where art_seq = #{theme}
+    </select>
+    
+    <select id="search" resultType="Article" parameterType="Command" >
+      select t2.* from (select 
+       rownum as seq,t.*
+        from (
+        	select  
+        	a.art_seq as artSeq, 
+			a.thm_seq as thmSeq,  
+			a.userid  as userid ,  
+			a.book_seq as bookSeq, 
+			to_char(a.posting_date,'yyyy-mm-dd hh24:mi:ss') as postingDate, 
+			a.read_cnt as readCnt, 
+			a.title as title, 
+			a.content as content,
+			m.name as name   
+       		 from Article a join Member m 
+       		 on a.userid = m.userid 
+       		 and a.userid = #{searchVal}
+       		 and a.thm_seq = #{theme} 
+       		 order by postingDate desc
+       		 ) t)t2
+        where t2.seq between #{start} and #{end}
+        order by t2.seq asc
     </select>    
     
     
      
     <select id="list" resultType="Article" parameterType="Command" >
-        select 
-        art_seq as artSeq, 
-		thm_seq as thmSeq,  
-		userid  as userid ,  
-		book_seq as bookSeq, 
-		posting_date as postingDate, 
-		read_cnt as readCnt, 
-		title as title, 
-		content as content  
-        from (select rownum as seq, a.* from Article a)
-        where seq between #{start} and #{end}
-        order by artSeq desc
+        select t2.* from (select 
+       rownum as seq,t.*
+        from (
+        	select  
+        	a.art_seq as artSeq, 
+			a.thm_seq as thmSeq,  
+			a.userid  as userid ,  
+			a.book_seq as bookSeq, 
+			to_char(a.posting_date,'yyyy-mm-dd hh24:mi:ss') as postingDate, 
+			a.read_cnt as readCnt, 
+			a.title as title, 
+			a.content as content,
+			m.name as name   
+       		 from Article a join Member m 
+       		 on a.userid = m.userid 
+       		 
+       		 and a.thm_seq = #{theme} 
+       		 order by postingDate desc
+       		 ) t)t2
+        where t2.seq between #{start} and #{end}
+        order by t2.seq asc
     </select>
     
     <select id="count" resultType="int" parameterType="Command" >

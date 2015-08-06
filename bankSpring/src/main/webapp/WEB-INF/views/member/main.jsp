@@ -9,8 +9,13 @@
 <script type="text/javascript">
 $(function() {
 	/*방명록 시퀀스번호 1000*/
-	article.visitor('${root}/article/1000/search/${member.userid}/1');
-	article.load('.box','${root}/article/path/write-visitor');
+	$('#userVisitor').on('click',function(){
+		article.search('${root}/article/search/1000/${member.userid}/1');
+	});
+	$('#writeVisitor').on('click',function() {
+		article.load('.box','${root}/article/path/write-visitor');
+	});
+	
 });
 </script>
 

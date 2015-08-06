@@ -36,25 +36,25 @@ public class MemberMapperImpl implements MemberMapper{
 	@Override
 	public int countAll() {
 		return sqlSession.selectOne(
-				namespace+"countAll");
+				namespace+"size");
 	}
 
 	@Override
 	public int countSome(Command command) {
 		return sqlSession.selectOne(
-				namespace+"countSome",command);
+				namespace+"count",command);
 	}
 
 	@Override
 	public MemberDto getElementById(Command command) {
 		return sqlSession.selectOne(
-				namespace+"getElementById",command);
+				namespace+"detail",command);
 	}
 
 	@Override
 	public List<MemberDto> getElementsByName(Command command) {
 		return sqlSession.selectList(
-				namespace+"getElementsByName",command);
+				namespace+"search",command);
 	}
 
 	@Override

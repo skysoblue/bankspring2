@@ -20,58 +20,111 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 로그인 -->
     <select id="login" resultType="Member" parameterType="Command" >
-        select * from member 
+        select 
+            m.userid as userid, 
+			m.name as name,
+			m.age as age,
+			m.password as password,
+			m.email as email,
+			m.is_admin as isAdmin, 
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+         from member m
         where userid=#{searchKey} and password=#{searchVal}
     </select>
  
-    <select id="getElementById" resultType="Member" parameterType="Command">
-       select *
-       from member
+    <select id="detail" resultType="Member" parameterType="Command">
+       select 
+       m.userid as userid, 
+			m.name as name,
+			m.age as age,
+			m.password as password,
+			m.email as email,
+			m.is_admin as isAdmin, 
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+       from member m
        where ${searchKey} = #{searchVal}
     </select>
     
     <select id="list" resultType="Member" parameterType="Command" >
-        select *
-        from (select rownum as seq, m.* from Member m)
-        where seq between #{start} and #{end}
-        order by regdate desc
+        
+       select t2.* from (select 
+       rownum as seq,t.*
+        from (
+        	select  
+        	m.userid as userid, 
+			m.name as name,
+			m.age as age,
+			m.password as password,
+			m.email as email,
+			m.is_admin as isAdmin, 
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+			 
+       		 from Member m 
+       		 order by regdate desc
+       		 ) t)t2
+        where t2.seq between #{start} and #{end}
+        order by t2.seq asc
     </select>    
     
-    <select id="selectOne" parameterType="String" resultType="Member">
-         select * from member where member_id=#{member_id} 
+    <select id="selectOne" resultType="Member" parameterType="String" >
+         select 
+         m.userid as userid, 
+			m.name as name,
+			m.age as age,
+			m.password as password,
+			m.email as email,
+			m.is_admin as isAdmin, 
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+          from member where member_id=#{member_id} 
     </select>
     
-    <select id="countSome" resultType="int" parameterType="Command" >
+    <select id="count" resultType="int" parameterType="Command" >
         select count(*) 
           from member
          where ${searchKey} like '%' || #{searchVal} || '%'
     </select>
     
-    <select id="countAll" resultType="int">
+    <select id="size" resultType="int">
         select count(*) from member
     </select>
     
     <!-- id/pw찾기 -->
-    <select id="loginSearch" parameterType="Member" resultType="int">
-        select count(*) from member where member_name=#{member_name} and member_email=#{member_email}
+    <select id="loginSearch" resultType="int" parameterType="Member" >
+        select count(*) from member 
+        where member_name=#{member_name} and member_email=#{member_email}
     </select>
     
     
-    <select id="getElementsByName" resultType="Member" parameterType="Command" >
-        select *
-        from (select rownum as seq, m.* from Member m where ${searchKey} like '%' || #{searchVal} || '%')
-        where seq between #{start} and #{end}
-        order by regdate desc
+    <select id="search" resultType="Member" parameterType="Command" >
+        
+       select t2.* from (select 
+       rownum as seq,t.*
+        from (
+        	select  
+        	m.userid as userid, 
+			m.name as name,
+			m.age as age,
+			m.password as password,
+			m.email as email,
+			m.is_admin as isAdmin, 
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+			 
+       		 from Member m where ${searchKey} like '%' || #{searchVal} || '%'
+       		 order by regdate desc
+       		 ) t)t2
+        where t2.seq between #{start} and #{end}
+        order by t2.seq asc
     </select>    
     
     <!-- delete 삭제 -->
-    <delete id="delete" parameterType="String">
-        delete from member where member_id=#{mem_id} 
+    <delete id="delete" parameterType="Member">
+        delete from member where userid=#{userid} 
     </delete>
  
     <!-- id 중복체크 -->
-    <select id="idCheck" parameterType="Member" resultType="int">
-        select count(*) from member where member_id=#{value} 
+    <select id="idCheck" resultType="int" parameterType="Member" >
+        select count(*) from member 
+        where userid=#{userid} 
     </select>        
     
 </mapper>

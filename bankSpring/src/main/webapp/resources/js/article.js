@@ -2,15 +2,13 @@ var article = {
 		loaded : false
 }
 article.load = function(div,url) {
-	$('#writeVisitor').on('click',function() {
+	
 		$(div).empty();
 		$(div).load(url);
-	});
-	
 }
-article.visitor = function() {
-	$('#userVisitor').on('click',function(){
+article.search = function($url) {
 		$.ajax({
+			url : $url,	
 			type : 'GET',
 			dataType : 'json',
 			contentType : 'application/json',
@@ -34,20 +32,15 @@ article.visitor = function() {
 				alert('데이터가 존재하지 않습니다.');
 			}
 		});
-	});
+	
 }
-article.write = function(url) {
+article.write = function($url,$data) {
 	$('#btnWrite').on('click',function(){
 		
 		$.ajax({
-			url : url,
+			url : $url,
 			type : 'POST',
-			data : { 
-				userid : $('input[name="userid"]').val(),
-				theme : $('input[name="theme"]').val(),
-				title : $('input[name="title"]').val(),
-				content : $('textarea[name="content"]').val()
-			},
+			data : $data,
 			dataType : 'json',
 			contentType : 'application/json',
 			success : function(data) {

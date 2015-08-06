@@ -18,4 +18,5 @@ public class DetailCommand extends Command {
 		setTheme(theme);
 		logger.info("[팩토리] 검색키={} 검색값={}",getSearchKey(),getSearchVal());
 	}
+	
 }

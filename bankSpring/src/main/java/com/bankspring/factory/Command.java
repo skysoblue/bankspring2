@@ -2,9 +2,24 @@ package com.bankspring.factory;
 
 public class Command implements Orderable{
 	public final int PAGESIZE = 10;
-	int pageNo, start, end, theme; // theme 는 게시판 시퀀스 번호
+	int pageNo, start, end, theme, seq; // theme 는 게시판 시퀀스 번호
 	String command, searchKey, searchVal; 
 	
+	
+	
+	
+	public int getSeq() {
+		return seq;
+	}
+
+
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
+
+
 	public int getPageNo() {
 		return pageNo;
 	}
