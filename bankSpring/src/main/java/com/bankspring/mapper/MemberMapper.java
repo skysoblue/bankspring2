@@ -12,7 +12,7 @@ public interface MemberMapper {
 	/* 
 	 * 추가 CREATE
 	 * */
-	public int insert(MemberDto member);
+	public int join(MemberDto member);
 	/*
 	 * 수정
 	 * */
@@ -25,19 +25,19 @@ public interface MemberMapper {
 	/*
 	 * 요소의 전체 갯수 
 	 * */
-	public int countAll();
+	public int size();
 	/*
 	 * 검색결과로 나온 요소의 갯수
 	 * */
-	public int countSome(Command command);
+	public int count(Command command);
 	/*
 	 * ID 로 중복값 없이 추출
 	 * */
-	public MemberDto getElementById(Command command);
+	public MemberDto detail(Command command);
 	/*
 	 * Name 으로 중복값 허용하며 추출
 	 * */
-	public List<MemberDto> getElementsByName(Command command);
+	public List<MemberDto> search(Command command);
 	/*
 	 * 전체 목록 추출
 	 * */

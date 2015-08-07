@@ -12,6 +12,8 @@ public class MemberDto {
 	private String email; 
 	private int isAdmin; // 관리자 1, 일반유저 0
 	private Date regDate; // 회원가입일
+	
+	
 	public String getUserid() {
 		return userid;
 	}

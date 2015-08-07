@@ -16,9 +16,9 @@ public class MemberMapperImpl implements MemberMapper{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insert(MemberDto member) {
+	public int join(MemberDto member) {
 		return sqlSession.insert(
-				namespace+"insert",member);
+				namespace+"join",member);
 	}
 
 	@Override
@@ -34,25 +34,25 @@ public class MemberMapperImpl implements MemberMapper{
 	}
 
 	@Override
-	public int countAll() {
+	public int size() {
 		return sqlSession.selectOne(
 				namespace+"size");
 	}
 
 	@Override
-	public int countSome(Command command) {
+	public int count(Command command) {
 		return sqlSession.selectOne(
 				namespace+"count",command);
 	}
 
 	@Override
-	public MemberDto getElementById(Command command) {
+	public MemberDto detail(Command command) {
 		return sqlSession.selectOne(
 				namespace+"detail",command);
 	}
 
 	@Override
-	public List<MemberDto> getElementsByName(Command command) {
+	public List<MemberDto> search(Command command) {
 		return sqlSession.selectList(
 				namespace+"search",command);
 	}

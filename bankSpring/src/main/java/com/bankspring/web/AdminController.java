@@ -30,24 +30,24 @@ public class AdminController {
 		logger.info("관리자 메인페이지 에서 넘어온 명령어 = {}, 페이지넘버={}", command,pageNo);
 		switch (command) {
 		case "list":
-			mav.addObject("memberList", memberService.memberList(CommandFactory.list(pageNo)));
-			mav.addObject("count", memberService.memberCountAll());
+			mav.addObject("memberList", memberService.list(CommandFactory.list(pageNo)));
+			mav.addObject("count", memberService.size());
 			mav.setViewName("admin/main.tiles");
 			break;
 		case "search":
 			switch (searchKey) {
 			case "list":
-				mav.addObject("memberList", memberService.memberList(CommandFactory.list(pageNo)));
-				mav.addObject("count", memberService.memberCountAll());
+				mav.addObject("memberList", memberService.list(CommandFactory.list(pageNo)));
+				mav.addObject("count", memberService.size());
 				mav.setViewName("admin/main.tiles");
 				break;
 			case "userid":
-				mav.addObject("member", memberService.memberDetail(CommandFactory.detail(searchKey, searchVal)));
+				mav.addObject("member", memberService.detail(CommandFactory.detail(searchKey, searchVal)));
 				mav.setViewName("admin/search.tiles");
 				break;
 			case "name":
-				mav.addObject("memberList", memberService.searchByKeyword(CommandFactory.search(pageNo,searchKey, searchVal)));
-				mav.addObject("count", memberService.memberCountSome(CommandFactory.count(searchKey, searchVal)));
+				mav.addObject("memberList", memberService.search(CommandFactory.search(pageNo,searchKey, searchVal)));
+				mav.addObject("count", memberService.count(CommandFactory.count(searchKey, searchVal)));
 				mav.setViewName("admin/main.tiles");
 				break;
 

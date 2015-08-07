@@ -65,25 +65,14 @@ public class ArticleController {
 	}
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public @ResponseBody List<ArticleDto> write(
-			@RequestParam("userid")String userid,
-			@RequestParam("thmSeq")String thmSeq,
-			@RequestParam("title")String title,
-			@RequestParam("content")String content
-			
-			){
-		logger.info("글쓰기 아이디={}",userid);
-		logger.info("글쓰기 테마={}",thmSeq);
-		logger.info("글쓰기 제목={}",title);
-		logger.info("글쓰기 컨텐츠={}",content);
+			@ModelAttribute ArticleDto article){
+		logger.info("글쓰기 아이디={}",article.getUserid());
+		logger.info("글쓰기 제목={}",article.getTitle());
+		logger.info("글쓰기 컨텐츠={}",article.getContent());
 		List<ArticleDto> list = new ArrayList<ArticleDto>();
-		article.setUserid(userid);
-		article.setThmSeq(Integer.parseInt(thmSeq));
-		article.setTitle(title);
-		article.setContent(content);
 		int ok = service.insert(article);
 		if (ok==1) {
 			list = service.search(CommandFactory.search(1,"userid",article.getUserid(),1000));
-			
 		} else {
 			list = null;
 		}
@@ -99,4 +88,38 @@ public class ArticleController {
 		logger.info("[상세]글 일련번호={}",artSeq);
 		return service.detail(CommandFactory.detail("userid", userid, Integer.parseInt(artSeq)));
 	}
+	@RequestMapping("/update")
+	public @ResponseBody ArticleDto update(
+			@ModelAttribute ArticleDto article){
+		int ok = service.update(article);
+		if (ok == 1) {
+			article = service.detail(CommandFactory.detail("userid", article.getUserid(), article.getArtSeq()));
+		} else {
+			article = null;
+		}
+		return article;
+	}
+	@RequestMapping("/remove")
+	public String delete(
+			@ModelAttribute ArticleDto article){
+		int ok = service.delete(article);
+		logger.info("글삭제 성공여부 : {}" , ok);
+		logger.info("리다이렉트 아이디 : {}",article.getUserid());
+		return "redirect:/article/search/1000/"+article.getUserid()+"/1";
+		
+/*
+redirect : 1. DB 에 변화가 발생하는 요청 executeUpdate (로그인,회원가입,글쓰기 )
+		   2. URL 이 바뀜
+		   3. model 객체 초기화
+forward  : 1. DB 에 변화가 발생하지 않는 요청 executeQuery
+		   2. URL 이 바뀌지 않음
+		   3. model 객체까지 넘김 
+*/
+	}
 }
+
+
+
+
+
+

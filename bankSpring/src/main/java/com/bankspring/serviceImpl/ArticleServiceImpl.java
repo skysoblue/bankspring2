@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bankspring.domain.ArticleDto;
 import com.bankspring.factory.Command;
@@ -14,6 +15,7 @@ import com.bankspring.mapper.ArticleMapper;
 import com.bankspring.service.ArticleService;
 import com.bankspring.web.AdminController;
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService{
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 	@Autowired private SqlSession sqlSession;
@@ -26,6 +28,7 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public int update(ArticleDto article) {
 		logger.info("[서비스] 수정");
+		
 		ArticleMapper mapper = sqlSession.getMapper(ArticleMapper.class);
 		return mapper.update(article);
 	}

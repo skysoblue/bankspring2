@@ -8,6 +8,8 @@ public class ItemDto {
 	private int fileSize; // 파일 사이즈
 	private int downloadCnt; // 다운로드 횟수
 	private String description; // 상세설명
+	
+	
 	public int getItemSeq() {
 		return itemSeq;
 	}

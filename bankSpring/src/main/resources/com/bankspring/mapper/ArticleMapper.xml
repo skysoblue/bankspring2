@@ -12,10 +12,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <update id="update" parameterType="Article" >
-        
+        update Article
+        <set>
+      		<if test="title != null">title = #{title},</if>
+      		<if test="content != null">content = #{content}</if>
+    	</set>
+        where art_seq = #{artSeq}
     </update>
     <delete id="delete" parameterType="Article" >
-    
+    	delete from Article
+    	where art_seq = #{artSeq}
     </delete>
     
     <select id="detail" resultType="Article" parameterType="Command">

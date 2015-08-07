@@ -28,31 +28,31 @@ public class MemberServiceImpl implements MemberService{
 
 /*===== executeUpdate =====*/
     @Override
-    public int joinMember(MemberDto member) {
+    public int join(MemberDto member) {
     	logger.info("[ 서비스 ] 회원가입 이름 = {}", member.getName());
-        return memberMapper.insert(member);
+        return memberMapper.join(member);
     }
     @Override
-	public int updateMember(MemberDto member) {
+	public int update(MemberDto member) {
     	logger.info("[ 서비스 ] 회원수정 이름 = {}", member.getName());
 		return memberMapper.update(member);
 	}
 	@Override
-	public int deleteMember(MemberDto member) {
+	public int delete(MemberDto member) {
 		logger.info("[ 서비스 ] 회원탈퇴 이름 = {}", member.getName());
 		return memberMapper.delete(member);
 	}
    
 /*===== executeQuery =====*/	
 	@Override
-	public MemberDto memberDetail(Command command) {
+	public MemberDto detail(Command command) {
 		logger.info("[서비스] 회원검색 아이디={}",command.getSearchVal());
-		return memberMapper.getElementById(command);
+		return memberMapper.detail(command);
 	}
 	@Override
-	public List<MemberDto> searchByKeyword(Command command) {
+	public List<MemberDto> search(Command command) {
 		logger.info("[서비스] 회원검색 키워드={}",command.getSearchVal());
-		return memberMapper.getElementsByName(command);
+		return memberMapper.search(command);
 	}
 	
 	@Override
@@ -61,18 +61,18 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.login(command);
 	}
     @Override
-    public List<MemberDto> memberList(Command command) {
+    public List<MemberDto> list(Command command) {
     	logger.info("[서비스] 회원목록 페이지 번호={}",command.getPageNo());
         return  memberMapper.list(command);
     }
 	@Override
-	public int memberCountAll() {
+	public int size() {
 		logger.info("[서비스] 전체 회원수 지나는 중...");
-		return memberMapper.countAll();
+		return memberMapper.size();
 	}
 	@Override
-	public int memberCountSome(Command command) {
+	public int count(Command command) {
 		logger.info("[서비스] 특정 회원수={}",command.getSearchVal());
-		return memberMapper.countSome(command);
+		return memberMapper.count(command);
 	}
 }

@@ -49,7 +49,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('#updateImage').click(function() {
-			member.updateImage();
+			
 		});
 	});
 </script>

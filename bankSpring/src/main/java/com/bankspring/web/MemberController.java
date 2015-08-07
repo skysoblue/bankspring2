@@ -41,7 +41,7 @@ public class MemberController {
 			Model model){
 		logger.info("[ 로그인 ] : id = {}, pass ={} ",userid, password);
 		String searchKey = "userid",searchVal = userid;
-		member = memberService.memberDetail(CommandFactory.detail(searchKey, searchVal));
+		member = memberService.detail(CommandFactory.detail(searchKey, searchVal));
 		if (member != null) {
 			if (password.equals(member.getPassword())) {
 				logger.info("===== 로그인 성공 =====");
@@ -65,7 +65,7 @@ public class MemberController {
 	public String join(@ModelAttribute MemberDto member,
 			ModelMap model ){
 		logger.info("회원가입 아이디={}", member.getUserid());
-		int joinOk = memberService.joinMember(member);
+		int joinOk = memberService.join(member);
 		logger.info("회원가입 성공여부={}", joinOk);
 		return "home/main.tiles";
 	}
@@ -88,7 +88,7 @@ public class MemberController {
 			Model model){
 		logger.info("회원 상세페이지 검색");
 		String searchKey = "userid",searchVal = userid;
-		member = memberService.memberDetail(CommandFactory.detail(searchKey, searchVal));
+		member = memberService.detail(CommandFactory.detail(searchKey, searchVal));
 		model.addAttribute("member",member);
 		return "/member/detail.tiles";
 	}
@@ -111,12 +111,12 @@ public class MemberController {
 		user.setEmail(email);
 		user.setPassword(password);
 		model.addAttribute("member",user);
-		int result = memberService.updateMember(user);
+		int result = memberService.update(user);
 		logger.info("수정 후 결과보기 {}", result);
 		String searchKey = "userid";
 		String searchVal = user.getUserid();
 		if (result != 0) { // update 를 성공했다면
-			member = memberService.memberDetail(CommandFactory.detail(searchKey, searchVal));
+			member = memberService.detail(CommandFactory.detail(searchKey, searchVal));
 	    	model.addAttribute("user", member); // 세션에 업데이트된 정보를 담는다
 			model.addAttribute("member",member);
 			return "member/detail";

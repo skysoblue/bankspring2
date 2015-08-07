@@ -116,6 +116,9 @@ create table Item(
 		references Member(userid) on delete cascade
 );
 commit;
+
+insert into Item valuse(seq.nextval,'hong','default.gif');
+
 /* 모든 글 */
 create table Article (
 	art_seq number constraint article_pk primary key, -- 글 시퀀스
