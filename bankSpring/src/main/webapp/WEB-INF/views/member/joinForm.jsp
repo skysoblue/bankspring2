@@ -1,9 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="root" value="<%=request.getContextPath() %>"></c:set>
-<c:set var="context" value="${root}/resources"></c:set>
     <form action="${root}/member/join.do" method="post" name="frmJoin">
         <fieldset>
         <legend>회원 가입</legend>
@@ -56,4 +51,4 @@
     </form>
     
     
-    <script type="text/javascript" src="<%=request.getContextPath()%>/js/member.js"></script>
+    

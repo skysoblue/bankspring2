@@ -1,10 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="root" value="<%=request.getContextPath() %>"></c:set>
-<c:set var="context" value="${root}/resources"></c:set>
-
     <form action="${root}/member/login.do" method="post" name="frmLogin">
         <fieldset>
         <legend>로그인</legend>
@@ -48,4 +42,4 @@
                 비밀번호 찾기</a>
         </span>
     </div>
-    <script type="text/javascript" src="${context}/js/member.js"></script>
+    
