@@ -29,40 +29,23 @@ public class ArticleController {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	@Autowired ArticleDto article;
 	@Autowired ArticleService service;
-	
-	@RequestMapping("/list/{theme}/{pageNo}")
-	public @ResponseBody List<ArticleDto> list (
-			@PathVariable("pageNo")String paramPage,
-			@PathVariable("theme")String strTheme){
-		List<ArticleDto> list = new ArrayList<ArticleDto>();
-		if (paramPage == null) {
-			paramPage = "1";
-		}
-		int pageNo = Integer.parseInt(paramPage);
-		int theme = Integer.parseInt(strTheme);
-		list = service.list(CommandFactory.list(pageNo,theme));
-		System.out.println("리스트결과" + list.toString());
-		return list;
-	}
-	@RequestMapping("/search/{theme}/{userid}/{pageNo}")
-	public @ResponseBody List<ArticleDto> search(@PathVariable("pageNo")String paramPage,
-			@PathVariable("theme")String strTheme,
-			@PathVariable("userid")String userid){
-		List<ArticleDto> list = new ArrayList<ArticleDto>();
-		int pageNo = Integer.parseInt(paramPage);
-		int theme = Integer.parseInt(strTheme);
-		list = service.search(CommandFactory.search(pageNo,"userid",userid,theme)); //1000 테마 시퀀스넘버 (방명록)
-		System.out.println("리스트결과" + list.toString());
-		return list;
-	}
-	@RequestMapping("/path/{path}")
-	public String path(@PathVariable("path")String path,
+	//******************************************
+	//no execute
+	//******************************************
+	@RequestMapping("/path/{theme}/{action}")
+	public String path(@PathVariable("theme")String theme,
+			@PathVariable("action")String action,
 			@ModelAttribute("user")MemberDto user,Model model){
 		// .jsp 는 타일즈에서 선언되 noTemplate 을 타기 위한 가상경로이다
 		// 실제 jsp 파일을 가리키는 것이 아니다.
+		logger.info("[컨트롤러 경로 액션] 경로={}, 액션={}", theme, action);
 		model.addAttribute("member", user);
-		return "article/"+path+".jsp";
+		model.addAttribute("action",action);
+		return "auth/article/"+theme+".tiles";
 	}
+	//******************************************
+	//executeUpdate
+	//******************************************
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public @ResponseBody List<ArticleDto> write(
 			@ModelAttribute ArticleDto article){
@@ -77,16 +60,6 @@ public class ArticleController {
 			list = null;
 		}
 		return list;
-	}
-	@RequestMapping("/detail/{userid}/{artSeq}")
-	public @ResponseBody ArticleDto detail(
-			@PathVariable("userid")String userid,
-			@PathVariable("artSeq")String artSeq){
-		// .jsp 는 타일즈에서 선언되 noTemplate 을 타기 위한 가상경로이다
-		// 실제 jsp 파일을 가리키는 것이 아니다.
-		logger.info("[상세]아이디={}",userid);
-		logger.info("[상세]글 일련번호={}",artSeq);
-		return service.detail(CommandFactory.detail("userid", userid, Integer.parseInt(artSeq)));
 	}
 	@RequestMapping("/update")
 	public @ResponseBody ArticleDto update(
@@ -106,6 +79,48 @@ public class ArticleController {
 		logger.info("글삭제 성공여부 : {}" , ok);
 		logger.info("리다이렉트 아이디 : {}",article.getUserid());
 		return "redirect:/article/search/1000/"+article.getUserid()+"/1";
+	}	
+	//******************************************
+	//executeQuery
+	//******************************************
+	@RequestMapping("/detail/{userid}/{artSeq}")
+	public @ResponseBody ArticleDto detail(
+			@PathVariable("userid")String userid,
+			@PathVariable("artSeq")String artSeq){
+		// .jsp 는 타일즈에서 선언되 noTemplate 을 타기 위한 가상경로이다
+		// 실제 jsp 파일을 가리키는 것이 아니다.
+		logger.info("[상세]아이디={}",userid);
+		logger.info("[상세]글 일련번호={}",artSeq);
+		return service.detail(CommandFactory.detail("userid", userid, Integer.parseInt(artSeq)));
+	}
+	@RequestMapping("/search/{theme}/{userid}/{pageNo}")
+	public @ResponseBody List<ArticleDto> search(@PathVariable("pageNo")String paramPage,
+			@PathVariable("theme")String strTheme,
+			@PathVariable("userid")String userid){
+		List<ArticleDto> list = new ArrayList<ArticleDto>();
+		int pageNo = Integer.parseInt(paramPage);
+		int theme = Integer.parseInt(strTheme);
+		list = service.search(CommandFactory.search(pageNo,"userid",userid,theme)); //1000 테마 시퀀스넘버 (방명록)
+		System.out.println("리스트결과" + list.toString());
+		return list;
+	}
+	@RequestMapping("/list/{theme}/{pageNo}")
+	public @ResponseBody List<ArticleDto> list (
+			@PathVariable("pageNo")String paramPage,
+			@PathVariable("theme")String strTheme){
+		List<ArticleDto> list = new ArrayList<ArticleDto>();
+		if (paramPage == null) {
+			paramPage = "1";
+		}
+		int pageNo = Integer.parseInt(paramPage);
+		int theme = Integer.parseInt(strTheme);
+		list = service.list(CommandFactory.list(pageNo,theme));
+		System.out.println("리스트결과" + list.toString());
+		return list;
+	}
+	
+	
+	
 		
 /*
 redirect : 1. DB 에 변화가 발생하는 요청 executeUpdate (로그인,회원가입,글쓰기 )
@@ -116,7 +131,7 @@ forward  : 1. DB 에 변화가 발생하지 않는 요청 executeQuery
 		   3. model 객체까지 넘김 
 */
 	}
-}
+
 
 
 

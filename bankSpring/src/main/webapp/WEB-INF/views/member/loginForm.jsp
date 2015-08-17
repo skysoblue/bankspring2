@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <form action="${root}/member/login.do" method="post" name="frmLogin">
+    <form action="${root}/member/login" method="post" name="frmLogin">
         <fieldset>
         <legend>로그인</legend>
         <table>

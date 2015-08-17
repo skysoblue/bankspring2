@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value="/main.do")
+	@RequestMapping(value="/main")
 	public String home(Model model){
 		logger.info("Home컨트롤러 : home");
-		return "home/main.tiles";
+		return "public/home/main.tiles";
 	}
 }

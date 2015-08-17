@@ -93,6 +93,7 @@ create table Book(
 	creator varchar2(100) default 'null',
 	genre varchar2(100) default 'null',
 	reg_date date default sysdate,
+	sort varchar2(20) default 'null',
 	constraint book_fk_member foreign key(userid)
 		references Member(userid) on delete cascade
 );

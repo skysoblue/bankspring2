@@ -6,9 +6,9 @@ import com.bankspring.domain.BookDto;
 import com.bankspring.factory.Command;
 
 public interface BookService {
-    public int add(BookDto item);
-    public int update(BookDto item);
-    public int delete(BookDto item);
+    public int add(BookDto book);
+    public int update(BookDto book);
+    public int delete(BookDto book);
     
 /*===== executeQuery =====*/    
     

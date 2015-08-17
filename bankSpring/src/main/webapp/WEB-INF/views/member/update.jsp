@@ -2,7 +2,7 @@
 	<div class="content">
 		<div>
 		<br />
-			<form action="${root}/member/update.do" name="frmUpdateMember" 
+			<form action="${root}/member/update" name="frmUpdateMember" 
 				 method="POST">
 				<table class="tab" style="margin: 0 auto;">
 					<tr>

@@ -18,7 +18,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Autowired MemberService memberService;
 	
-	@RequestMapping("/member.do")
+	@RequestMapping("/member/list")
 	// command , pageNo 필수값, 나머지는 선택값
 	public ModelAndView member(@RequestParam("command")String command,
 			@RequestParam(value="pageNo",defaultValue="1")String paramPage,

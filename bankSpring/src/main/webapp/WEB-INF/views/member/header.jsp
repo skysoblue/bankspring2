@@ -19,9 +19,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#"> 내 서재 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#" id="userReview">도서리뷰</a></li>
-        <li><a href="#" id="userBbs">게시판</a></li>
-        <li><a href="#" id="userVisitor">방명록</a></li>
+        <li><a href="#" id="review-inventory">도서리뷰</a></li>
+        <li><a href="#" id="bbs-inventory">게시판</a></li>
+        <li><a href="#" id="visitor-inventory">방명록</a></li>
         <li>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -29,9 +29,9 @@
 						글쓰기 <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" id="writeReview">도서리뷰</a></li>
-						<li><a href="#" id="writeBbs">게시판</a></li>
-						<li><a href="#" id="writeVisitor">방명록</a></li>
+						<li><a href="#" id="review-write">도서리뷰</a></li>
+						<li><a href="#" id="bbs-write">게시판</a></li>
+						<li><a href="#" id="visitor-write">방명록</a></li>
 					</ul></li>
 			</ul>
 		</li>
@@ -43,8 +43,8 @@
           ${member.name} 님 환영합니다
            <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="${root}/member/detail.do">마이페이지</a></li>
-            <li><a href="${root}/member/logout.do">로그아웃</a></li>
+            <li><a href="#" id="member-detail">마이페이지</a></li>
+            <li><a href="#" id="logout">로그아웃</a></li>
           </ul>
         </li>
       </ul>
@@ -54,7 +54,16 @@
 </header>
 
 <div class="clear"></div>
-<script src="${context}/js/member.js"></script>
+<script type="text/javascript">
+	$('#review-inventory').click(function() {location.href='${root}/article/path/review/inventory';});
+	$('#bbs-inventory').click(function() {location.href='${root}/article/path/bbs/inventory';});
+	$('#visitor-inventory').click(function() {location.href='${root}/article/path/visitor/inventory';});
+	$('#review-write').click(function() {location.href='${root}/article/path/review/write';});
+	$('#bbs-write').click(function() {location.href='${root}/article/path/bbs/write';});
+	$('#visitor-write').click(function() {location.href='${root}/article/path/visitor/write';});
+	$('#member-detail').click(function() {location.href='${root}/member/detail';});
+	$('#logout').click(function() {location.href='${root}/member/logout';});
+</script>
 
 
 

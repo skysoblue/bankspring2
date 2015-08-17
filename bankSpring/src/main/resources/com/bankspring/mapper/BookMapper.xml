@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bankspring.mapper.ArticleMapper">
+    
+    <insert id="insert" parameterType="Book">
+    </insert>
+    
+    <update id="update" parameterType="Book" >
+    </update>
+    <delete id="delete" parameterType="Book" >
+    </delete>
+    
+    <select id="detail" resultType="Book" parameterType="Command">
+     	select  
+        	a.art_seq as artSeq, 
+			a.thm_seq as thmSeq,  
+			a.userid  as userid ,  
+			a.book_seq as bookSeq, 
+			to_char(a.posting_date,'yyyy-mm-dd hh24:mi:ss') as postingDate, 
+			a.read_cnt as readCnt, 
+			a.title as title, 
+			a.content as content,
+			m.name as name   
+       		 from Article a join Member m 
+       		 on a.userid = m.userid 
+       		 and a.userid = #{searchVal}
+       		
+       		 where art_seq = #{theme}
+    </select>
+    
+    <select id="search" resultType="Book" parameterType="Command" >
+    </select>    
+    
+    
+     
+    <select id="list" resultType="Book" parameterType="Command" >
+        select t2.* from (select 
+       rownum as seq,t.*
+        from (
+        	select  
+        	a.art_seq as artSeq, 
+			a.thm_seq as thmSeq,  
+			a.userid  as userid ,  
+			a.book_seq as bookSeq, 
+			to_char(a.posting_date,'yyyy-mm-dd hh24:mi:ss') as postingDate, 
+			a.read_cnt as readCnt, 
+			a.title as title, 
+			a.content as content,
+			m.name as name   
+       		 from Article a join Member m 
+       		 on a.userid = m.userid 
+       		 
+       		 and a.thm_seq = #{theme} 
+       		 order by postingDate desc
+       		 ) t)t2
+        where t2.seq between #{start} and #{end}
+        order by t2.seq asc
+    </select>
+    
+    <select id="count" resultType="int" parameterType="Command" >
+       
+    </select>
+    
+    <select id="size" resultType="int" >
+        
+    </select>
+           
+    
+</mapper>

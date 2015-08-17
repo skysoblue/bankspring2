@@ -9,6 +9,8 @@ public class BookDto {
 	private String creator; // 저자
 	private String genre; // 책분류
 	private Date regDate; // 등록일
+	private String sort; // 분류 (베스트셀러)
+	
 	public int getBookSeq() {
 		return bookSeq;
 	}
@@ -44,6 +46,17 @@ public class BookDto {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	@Override
+	public String toString() {
+		return "BookDto [bookSeq=" + bookSeq + ", userid=" + userid + ", title=" + title + ", creator=" + creator
+				+ ", genre=" + genre + ", regDate=" + regDate + ", sort=" + sort + "]";
 	}
 	
 }

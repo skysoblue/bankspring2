@@ -22,10 +22,12 @@
 		<typeAlias type="com.bankspring.domain.MemberDto" alias="Member"/>
 		<typeAlias type="com.bankspring.factory.Orderable" alias="Command"/>
 		<typeAlias type="com.bankspring.domain.ArticleDto" alias="Article"/>
+		<typeAlias type="com.bankspring.domain.BookDto" alias="Book"/>
 	</typeAliases>
   <mappers>
     <mapper resource="com/bankspring/mapper/MemberMapper.xml"/>
     <mapper resource="com/bankspring/mapper/ArticleMapper.xml"/>
+    <mapper resource="com/bankspring/mapper/BookMapper.xml"/>
   </mappers>
   
 </configuration>

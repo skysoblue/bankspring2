@@ -63,7 +63,8 @@
 			$.each(data,function(){
 				table += '<tr>';
 				table += '<td>'+this.artSeq+'</td><td>'+this.userid+
-				'</td><td>'+this.name+'</td><td><a href="#" onclick="return article.detail('+this.artSeq+')">'+this.title+'</a></td><td>'+this.postingDate+'</td>';
+				'</td><td>'+this.name+'</td><td><a href="#" onclick="return article.detail('+this.artSeq+')">'
+				+this.title+'</a></td><td>'+this.postingDate+'</td>';
 				table += '</tr>';
 			});
 			table += '</table>';

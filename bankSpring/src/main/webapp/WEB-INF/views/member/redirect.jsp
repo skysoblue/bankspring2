@@ -3,6 +3,6 @@
 	$(function() {
 		var msg = '${msg}';
 		alert(msg);
-		document.location.href = "${root}/home/main.do";
+		document.location.href = "${root}/home/main";
 	});
 </script>

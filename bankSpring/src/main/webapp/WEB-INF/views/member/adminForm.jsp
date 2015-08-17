@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
- <form action="${context}/member/searchAllMembers.do"  
+ <form action="${context}/member/searchAllMembers"  
             name="frmAdmin">
         <fieldset>
         <legend>회원관리</legend>

@@ -84,8 +84,7 @@ style='width:300px; height : 500px; background-color: white; margin : 0 auto;'>
 			$.magnificPopup.close();
 		});
 		$('#admin').click(function() {
-			
-			member.checkAdmin('${root}/admin/member.do?command=list&pageNo=1');
+			member.checkAdmin('${root}/admin/member/list');
 		});
 	});
 </script>
