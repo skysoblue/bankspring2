@@ -41,7 +41,7 @@ public class ArticleController {
 		logger.info("[컨트롤러 경로 액션] 경로={}, 액션={}", theme, action);
 		model.addAttribute("member", user);
 		model.addAttribute("action",action);
-		return "auth/article/"+theme+".tiles";
+		return "auth/content/"+theme+".tiles";
 	}
 	//******************************************
 	//executeUpdate
