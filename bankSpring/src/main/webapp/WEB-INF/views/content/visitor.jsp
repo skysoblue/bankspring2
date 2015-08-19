@@ -52,14 +52,16 @@ visitor.write = function($url,$data) {
 
 }
 visitor.inventory = function(pageNo) {
-	console.log('넘어온 pageNo'+pageNo);
+	console.log('넘어온 pageNo : '+pageNo);
+	console.log('넘어온 ID :'+'${member.userid}');
 	$.getJSON('${root}/article/search/1000/${member.userid}/'+pageNo,function(data){
-		visitor.list(data);
+		visitor.list(data); 
+	 	
 	});
 }
 visitor.list = function(data) {
 	$('.box').empty();
-	var table = '<table class="tab">';
+	var table = '<table class="tab" style="width:1000px;margin:0 auto">';
 	table += '<tr><th>글번호</th><th>ID</th><th>이름</th><th>제목</th><th>등록일</th></tr>';
 	$.each(data,function(){
 		table += '<tr>';
@@ -80,10 +82,13 @@ visitor.list = function(data) {
 	table += '</ul></nav></div></td></tr></table>';
 	$('.box').html(table);
 	visitor.pagination();
+	
 }
 visitor.pagination = function() {
 	$('.page-li').on('click',function(){
-		var pageNo = $('.page-li').attr('value');
+		var pageNo = $('li').each(function() {
+			
+		});
 		alert('선택한 페이지 번호'+pageNo);
 		visitor.inventory(pageNo);
 	});
@@ -140,7 +145,7 @@ visitor.detailForm = function(data) {
 	table += '</table>';
 	$('.box').empty();
 	$('.box').html(table);
-	article.update(data);
+	visitor.update(data);
 }
 visitor.updateForm = function(data) {
 	$('.box').empty();

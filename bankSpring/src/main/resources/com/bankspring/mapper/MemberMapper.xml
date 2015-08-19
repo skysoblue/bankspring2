@@ -36,7 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			m.password as password,
 			m.email as email,
 			m.is_admin as isAdmin, 
-			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate
+			to_char(m.regdate,'yyyy-mm-dd hh24:mi:ss') as regdate,
+			m.profile as profile
        from member m
        where ${searchKey} = #{searchVal}
     </select>

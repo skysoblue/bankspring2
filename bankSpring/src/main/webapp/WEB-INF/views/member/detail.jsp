@@ -1,68 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<div class="content">
-		<div>
-		<br />
-			<form action="${root}/member/update" name="frmUpdateMember" 
-				enctype="multipart/form-data">
-				<table class="tab" style="margin: 0 auto;">
-					<tr>
-						<td rowspan="4" style="width:30%">
-							<img src="${context}/image/default.gif" alt="" />
-						</td>
-						<td>ID</td>
-						<td>${member.userid}</td>
-					</tr>
-					<tr>
-						
-						<td>비밀번호</td>
-						<td>${member.password}</td>
-					</tr>
-					<tr>
-						<td>이름</td>
-						<td>${member.name}</td>
-					</tr>
-					<tr>
-						<td>나이</td>
-						<td>${member.age}</td>
-						
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<button id="updateImage" style="width:100px">이미지 변경</button>
-						</td>
-						<td>이메일</td>
-						<td>${member.email}</td>
-					</tr>
-				</table>
-			</form>
-			<br /><br /><br />
-			<a href="${root}/member/update.do">수정페이지로</a>
-		</div>
-	</div>
-<script src="${context}/js/member.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="root" value="<%=request.getContextPath() %>"></c:set>
+<c:set var="context" value="${root}/resources"></c:set>
+<div class="box">aa</div>
 <script type="text/javascript">
-	$(function() {
-		$('#updateImage').click(function() {
-			
+$(function() {
+	user.detail();
+	$('#btnUpdateImage').click(function() {});
+	
+});
+var user = {} 
+user.detail = function() {
+	$.getJSON('${root}/member/mypage/${member.userid}',
+			function(data){
+				var table ="<table class='tab'>"
+					+ "<tr><td rowspan='5' style='width:30%'>"
+					+ "<img src='${context}/image/member/${member.profile}' alt='' /></td>"
+					+ "<td>ID</td>"
+					+ "<td>${member.userid}</td></tr>"
+					+ "<tr><td>비밀번호</td>"
+					+ "<td><input type='text' name='password' readonly value='${member.password}'/></td>"
+					+ "</tr><tr><td>이름</td>"
+					+ "<td>${member.name}</td></tr>"
+					+ "<tr><td>나이</td>"
+					+ "<td>${member.age}</td></tr><tr>"
+					/* + "<input type='button' id='image' style='width:100px' value='이미지변경'></td>" */
+					+ "<td>이메일</td>"
+					+ "<td><input type='text' name='email' readonly value='${member.email}'/></td></tr>"
+					+ "<tr><td style='text-align:center' colspan='3'>"
+					+ "<input type='button' id='update' style='width:100px' value='수 정'>"
+					+ "<input type='button' id='remove' style='width:100px' value='탈 퇴'>"
+					+ "</td></tr>"
+					+ "</table>";
+					
+					$('.box').html(table);
+					$('#update').click(function() {
+						user.updateForm();	
+					});
 		});
-	});
+	
+	
+	
+}
+user.updateForm = function() {
+	$.getJSON('${root}/member/detail/${member.userid}',
+			function(data){
+				$('.box').empty();
+				var form = $('.box').append("<form action='${root}/member/update' id='frm' method='post' enctype='multipart/form-data'>");
+				var table ="<table class='tab'>"
+					+ "<tr><td rowspan='4' style='width:30%'>"
+					+ "<img src='${context}/image/member/${member.profile}' alt='' /></td>"
+					+ "<td>ID</td>"
+					+ "<td>${member.userid}</td></tr>"
+					+ "<tr><td>비밀번호</td>"
+					+ "<td><input type='text' name='password' value='${member.password}'/></td>"
+					+ "</tr><tr><td>이름</td>"
+					+ "<td>${member.name}</td></tr>"
+					+ "<tr><td>나이</td>"
+					+ "<td>${member.age}</td></tr><tr><td style='text-align:center'>"
+					+ "<input type='file' id='file' name='file' style='width:100px' value='이미지변경'/></td>"
+					+ "<td>이메일</td>"
+					+ "<td><input type='text' name='email' value='${member.email}'/></td></tr>"
+					+ "<tr><td style='text-align:center' colspan='3'>"
+					+ "<input type='submit' id='confirm' style='width:100px' value='확 인'>"
+					+ "<input type='button' id='cancel' style='width:100px' value='취 소'>"
+					+ "</td></tr>"
+					+ "</table>";
+					+"<div id='progress'><div id='bar'></div><div id='percent'>0%</div ></div>";
+					$('#frm').html(table);
+					$('#frm').submit(function(e) {
+						e.preventDefault();
+						var postData = new FormData($('#frm'));
+						$.ajax({
+							url : '${root}/member/update',
+							type : 'post',
+							data : postData,
+							async : false,
+							dataType : 'json',
+							mimeType : 'multipart/form-data',
+							processType : false,
+							contentType : false,
+							success : function(data) {
+								alert('데이터 : '+data);
+							},
+							error : function(xhr, status, msg){
+								alert(' 에러 발생 상태:'+status + ' 내용:'+msg);
+							}
+						});	
+					});
+		});
+	
+}
+var errorFn = function(xhr, status, msg){
+	alert(' 에러 발생 상태:'+status + ' 내용:'+msg);
+}
+var options = {
+		beforeSend: function() { $("#progress").show(); //clear everything 
+			$("#bar").width('0%'); $("#message").html(""); 
+			$("#percent").html("0%"); 
+		}, 
+		uploadProgress: function(event, position, total, percentComplete) {
+			$("#bar").width(percentComplete+'%'); $("#percent").html(percentComplete+'%'); 
+		}, 
+		success: function() {
+			$("#bar").width('100%'); $("#percent").html('100%'); 
+		}, 
+		complete: function(response) {
+			$("#message").html("<font color='green'>"+response.responseText+"</font>"); 
+		}, 
+		error: function() {
+			$("#message").html("<font color='red'> ERROR: unable to upload files</font>"); 
+		}
+}
+user.update = function() {
+	
+	
+}
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

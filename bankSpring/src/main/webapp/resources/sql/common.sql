@@ -3,6 +3,7 @@ grant connect, resource, dba to bbs;
 
 conn bbs/bbs;
 
+drop table Image;
 drop table Article;
 drop table Item;
 drop table Book;
@@ -18,21 +19,22 @@ create table Member(
 	password varchar2(100) default 'null', -- 비번
 	email	varchar2(100), -- 이메일
 	is_admin number default 0, -- 관리자 1 일반유저 0
-	regdate date default sysdate
+	regdate date default sysdate,
+	profile varchar2(100) 
 );
 commit;
+insert into Member(userid, name, age, password, email, is_admin, regdate, profile)
+	values('hong','홍길동','20','1234','hong@naver.com',0,sysdate,'default.gif');
 insert into Member
-	values('hong','홍길동','20','1234','hong@naver.com',0,sysdate);
+	values('kang','강감찬','30','1234','kang@naver.com',0,sysdate,'default.gif');
 insert into Member
-	values('kang','강감찬','30','1234','kang@naver.com',0,sysdate);
+	values('kim','김유신','35','1234','kim@naver.com',0,sysdate,'default.gif');
 insert into Member
-	values('kim','김유신','35','1234','kim@naver.com',0,sysdate);
+	values('lee','이순신','33','1234','lee@naver.com',0,sysdate,'default.gif');
 insert into Member
-	values('lee','이순신','33','1234','lee@naver.com',0,sysdate);
+	values('you','유관순','28','1234','you@naver.com',0,sysdate,'default.gif');
 insert into Member
-	values('you','유관순','28','1234','you@naver.com',0,sysdate);
-insert into Member
-	values('admin','관리자','40','1234','you@naver.com',1,sysdate);
+	values('admin','관리자','40','1234','you@naver.com',1,sysdate,'default.gif');
 commit;
 
 /* 시퀀스 */
@@ -99,10 +101,10 @@ create table Book(
 );
 commit;
 -- 1008,1009,1010,1011
-insert into Book values(seq.nextval,'hong','명예의 조각들','로이스 맥마스터 부졸드','외국판타지소설',sysdate  );
-insert into Book values(seq.nextval,'hong','바라야 내전','로이스 맥마스터 부졸드','외국판타지소설',sysdate  );
-insert into Book values(seq.nextval,'you','피렌체','살만 루슈디','영국문학',sysdate  );
-insert into Book values(seq.nextval,'kang','해리포터','조앤 롤링','외국판타지소설',sysdate  );
+insert into Book(book_seq,userid,title,creator,genre,reg_date) values(seq.nextval,'hong','명예의 조각들','로이스 맥마스터 부졸드','외국판타지소설',sysdate  );
+insert into Book(book_seq,userid,title,creator,genre,reg_date) values(seq.nextval,'hong','바라야 내전','로이스 맥마스터 부졸드','외국판타지소설',sysdate  );
+insert into Book(book_seq,userid,title,creator,genre,reg_date) values(seq.nextval,'you','피렌체','살만 루슈디','영국문학',sysdate  );
+insert into Book(book_seq,userid,title,creator,genre,reg_date) values(seq.nextval,'kang','해리포터','조앤 롤링','외국판타지소설',sysdate  );
 commit;
 /* 첨부파일 */
 create table Item(
@@ -118,7 +120,7 @@ create table Item(
 );
 commit;
 
-insert into Item valuse(seq.nextval,'hong','default.gif');
+insert into Item(item_seq,userid,file_name) values(seq.nextval,'hong','default.gif');
 
 /* 모든 글 */
 create table Article (
@@ -156,8 +158,32 @@ insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, t
 	values(seq.nextval, 1000, 'you','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
 	values(seq.nextval, 1000, 'you','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+-- 홍길동 방명록 페이징 데이터 때문에 12개 입력	
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
 	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+-- 방명록 페이징 샘플 데이터	
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
 	values(seq.nextval, 1000, 'kang','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
@@ -178,5 +204,29 @@ insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, t
 	values(seq.nextval, 1001, 'you','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');	
 commit;	
 
+create table Image(
+	img_seq number constraint image_pk primary key,
+	image varchar2(100),
+	big_image varchar2(100),
+	userid varchar2(100),
+	book_seq number,
+	constraint image_fk_member foreign key(userid)
+		references Member(userid) on delete cascade,
+	constraint image_fk_book foreign key(book_seq)
+		references Book(book_seq) on delete cascade
+);
+commit;
 
-
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','hong');
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','kang');
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','kim');
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','lee');
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','you');
+insert into image (img_seq, image, userid)
+values(seq.nextval, 'default.gif','admin');
+commit;

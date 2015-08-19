@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -88,8 +90,15 @@ public class MemberController {
 		model.addAttribute("member",user);
 		return "auth/member/detail.tiles";
 	}
-	@RequestMapping("/search")
-	public String search(@RequestParam("userid")String userid,
+	@RequestMapping("/mypage/{userid}")
+	public @ResponseBody MemberDto myPage(@PathVariable("userid") String userid,
+			Model model){
+		logger.info("[마이페이지]");
+		String searchKey = "userid",searchVal = userid;
+		return memberService.detail(CommandFactory.detail(searchKey, searchVal));
+	}
+	@RequestMapping("/search/{userid}")
+	public String search(@PathVariable("userid")String userid,
 			Model model){
 		logger.info("회원 상세페이지 검색");
 		String searchKey = "userid",searchVal = userid;
