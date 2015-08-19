@@ -100,8 +100,11 @@ public class ArticleController {
 		List<ArticleDto> list = new ArrayList<ArticleDto>();
 		int pageNo = Integer.parseInt(paramPage);
 		int theme = Integer.parseInt(strTheme);
+		int size = service.size(CommandFactory.size(1000,userid));
 		list = service.search(CommandFactory.search(pageNo,"userid",userid,theme)); //1000 테마 시퀀스넘버 (방명록)
 		System.out.println("리스트결과" + list.toString());
+		System.out.println("리스트 사이즈" + size);
+		
 		return list;
 	}
 	@RequestMapping("/list/{theme}/{pageNo}")

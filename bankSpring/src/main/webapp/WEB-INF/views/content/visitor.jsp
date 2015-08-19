@@ -60,6 +60,7 @@ visitor.inventory = function(pageNo) {
 	});
 }
 visitor.list = function(data) {
+	console.log('데이터의 갯수' + data.length);
 	$('.box').empty();
 	var table = '<table class="tab" style="width:1000px;margin:0 auto">';
 	table += '<tr><th>글번호</th><th>ID</th><th>이름</th><th>제목</th><th>등록일</th></tr>';
@@ -71,29 +72,29 @@ visitor.list = function(data) {
 		table += '</tr>';
 	});
 	table += '<tr><td colspan="5">';
-	table += '<div>';
-	table += '<nav><ul  class="pagination"><li ><a href="#" aria-label="Previous" class="page-li"><span aria-hidden="true">&laquo;</span></a></li>';
-	table += '<li ><a href="#" class="page-li" value="1">1</a></li>';
-	table += '<li ><a href="#" class="page-li" value="2">2</a></li>';
-	table += '<li ><a href="#" class="page-li" value="3">3</a></li>';
-	table += '<li ><a href="#" class="page-li">4</a></li>';
-	table += '<li ><a href="#" class="page-li">5</a></li>';
-	table += '<li ><a href="#" class="page-li"  aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+	table += '<div style="width:600px;margin:0 auto">';
+	table += '<nav><ul  class="pagination">';
+	/* table += '<li ><a href="#" aria-label="Previous" class="page-li"><span aria-hidden="true">&laquo;</span></a></li>'; */
+	
+	/* table += '<li ><a href="#" class="page-li"  aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'; */
 	table += '</ul></nav></div></td></tr></table>';
 	$('.box').html(table);
-	visitor.pagination();
+	var arr = []; /* var arr = new Array() */
+	for(var i=0;i< (data.length/2);i++){
+		arr[i] = (i+1);
+	}
 	
-}
-visitor.pagination = function() {
-	$('.page-li').on('click',function(){
-		var pageNo = $('li').each(function() {
-			
-		});
-		alert('선택한 페이지 번호'+pageNo);
-		visitor.inventory(pageNo);
+	$.each(arr,function(){
+		$('.pagination').append('<li ><a href="#" onclick="return visitor.inventory('+this+')">'+this+'</a></li>');
 	});
+	if((data.length/2)>5){
+		$('.pagination').append('<li ><a href="#" class="page-li"  aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+	}else{
+		
+	}
 	
 }
+
 visitor.noData = function() {
 	var table = '<table class="tab">';
 	table += '<tr><th>글번호</th><th>ID</th><th>이름</th><th>제목</th><th>등록일</th></tr>';

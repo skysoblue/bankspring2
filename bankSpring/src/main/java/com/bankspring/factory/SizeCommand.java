@@ -10,8 +10,9 @@ public class SizeCommand extends Command {
 		logger.info("전체목록수");
 	}
 	@Override
-	public void execute(int theme) {
+	public void execute(int theme, String userid) {
 		setTheme(theme);
+		setSearchVal(userid);
 		logger.info("테마별 목록수");
 	}
 }

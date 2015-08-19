@@ -169,6 +169,14 @@ public class Command implements Orderable{
 	}
 
 
+
+	@Override
+	public void execute(int param1, String param2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 
 }

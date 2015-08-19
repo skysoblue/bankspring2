@@ -183,7 +183,31 @@ insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, t
 	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
 	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
--- 방명록 페이징 샘플 데이터	
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
+	values(seq.nextval, 1000, 'hong','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
+	-- 방명록 페이징 샘플 데이터	
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 
 	values(seq.nextval, 1000, 'kang','',  sysdate, 0,'샘플타이틀','원질이 그림자는 사랑의 살았으며, 것은 있으며, 있는가?');
 insert into Article(art_seq, thm_seq, userid, book_seq, posting_date,read_cnt, title, content) 

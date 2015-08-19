@@ -63,9 +63,9 @@ public class CommandFactory {
 		logger.info("[팩토리] 전체목록수 구하기 ");
 		return instance;
 	}
-	public static Command size(int theme){
+	public static Command size(int theme, String userid){
 		instance = new SizeCommand();
-		instance.execute(theme);
+		instance.execute(theme, userid);
 		logger.info("[팩토리] 전체목록수 구하기 ");
 		return instance;
 	}

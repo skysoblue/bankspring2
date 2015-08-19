@@ -21,7 +21,7 @@ public interface Orderable {
 	  4. 크기(size)
 	 ****************************/
 	public void execute();
-	/*public void execute(int param1);*/
+	public void execute(int param1,String param2);
 	/****************************
 	  5. 카운팅(count)
 	 ****************************/

@@ -97,7 +97,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="size" resultType="int" parameterType="Command" >
-        
+        select count(*) 
+        from Article a join Member m
+        on a.userid = m.userid
+        and a.thm_seq = #{theme}
+        where m.userid = #{searchVal} 
     </select>
            
     
