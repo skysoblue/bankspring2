@@ -3,7 +3,7 @@ package com.bankspring.domain;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
-@Component("memberDto")
+@Component
 public class MemberDto {
 	private String userid;
 	private String name;

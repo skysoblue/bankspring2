@@ -1,7 +1,9 @@
 package com.bankspring.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,18 +96,25 @@ public class ArticleController {
 		return service.detail(CommandFactory.detail("userid", userid, Integer.parseInt(artSeq)));
 	}
 	@RequestMapping("/search/{theme}/{userid}/{pageNo}")
-	public @ResponseBody List<ArticleDto> search(@PathVariable("pageNo")String paramPage,
+	public @ResponseBody Map<String,Object> search(
+			@PathVariable("pageNo")String paramPage,
 			@PathVariable("theme")String strTheme,
 			@PathVariable("userid")String userid){
+		Map<String,Object>map = new HashMap<String,Object>();
 		List<ArticleDto> list = new ArrayList<ArticleDto>();
 		int pageNo = Integer.parseInt(paramPage);
 		int theme = Integer.parseInt(strTheme);
 		int size = service.size(CommandFactory.size(1000,userid));
 		list = service.search(CommandFactory.search(pageNo,"userid",userid,theme)); //1000 테마 시퀀스넘버 (방명록)
-		System.out.println("리스트결과" + list.toString());
-		System.out.println("리스트 사이즈" + size);
 		
-		return list;
+		logger.info("리스트결과 = {}" + list.toString());
+		logger.info("리스트 사이즈 = {}" + size);
+		
+		map.put("currentPage", pageNo);
+		map.put("size", size);
+		map.put("list", list);
+		
+		return map;
 	}
 	@RequestMapping("/list/{theme}/{pageNo}")
 	public @ResponseBody List<ArticleDto> list (

@@ -60,11 +60,12 @@ visitor.inventory = function(pageNo) {
 	});
 }
 visitor.list = function(data) {
-	console.log('데이터의 갯수' + data.length);
+	console.log('데이터의 갯수' + data.size);
+	console.log('현재페이지 '+ data.currentPage);
 	$('.box').empty();
 	var table = '<table class="tab" style="width:1000px;margin:0 auto">';
 	table += '<tr><th>글번호</th><th>ID</th><th>이름</th><th>제목</th><th>등록일</th></tr>';
-	$.each(data,function(){
+	$.each(data.list,function(){
 		table += '<tr>';
 		table += '<td>'+this.artSeq+'</td><td>'+this.userid+
 		'</td><td>'+this.name+'</td><td><a href="#" onclick="return visitor.detail('+this.artSeq+')">'
@@ -79,20 +80,35 @@ visitor.list = function(data) {
 	/* table += '<li ><a href="#" class="page-li"  aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'; */
 	table += '</ul></nav></div></td></tr></table>';
 	$('.box').html(table);
-	var arr = []; /* var arr = new Array() */
-	for(var i=0;i< (data.length/2);i++){
-		arr[i] = (i+1);
-	}
-	
-	$.each(arr,function(){
-		$('.pagination').append('<li ><a href="#" onclick="return visitor.inventory('+this+')">'+this+'</a></li>');
-	});
-	if((data.length/2)>5){
-		$('.pagination').append('<li ><a href="#" class="page-li"  aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+	var pageSize = 5; /*페이지 블록이 5*/
+	var rowPerPage = 10; /* 한 페이지당 로우 갯수 */
+	var rowCount = data.size;
+	var pageCount = Math.floor(rowCount / rowPerPage) + (rowCount % pageSize == 0 ? 0 : 1); 
+	/* Math.floor 는 소수점 이하는 무조건 생략*/
+	/* Math.ceil  는 소수점 이하는 무조건 올림*/
+	var currentPage = data.currentPage;
+	var nmg = currentPage % pageSize;
+	var startPage = 0;
+	if(nmg != 0){
+		startPage = currentPage - nmg + 1;	
 	}else{
-		
+		startPage = currentPage - (pageSize-1);
 	}
 	
+	var endPage = startPage + pageSize - 1;
+	if(endPage > pageCount){
+		endPage = pageCount;
+	}
+	console.log('시작페이지 :' + startPage + ' 현재페이지 :' + currentPage + ' 끝페이지 :' + endPage + ' 페이지카운트 : '+ pageCount);
+	if(startPage > pageSize){
+		$('.pagination').append('<li ><a href="#" onclick="return visitor.inventory('+(startPage-pageSize)+')" aria-label="Previous" ><span aria-hidden="true">&laquo;</span></a></li>');
+	}
+	for(var i=startPage;i<=endPage;i++){
+		$('.pagination').append('<li><a href="#" onclick="return visitor.inventory('+i+')">'+i+'</a></li>');
+	}
+	if(endPage < pageCount){
+		$('.pagination').append('<li ><a href="#" onclick="return visitor.inventory('+(startPage+pageSize)+')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+	}
 }
 
 visitor.noData = function() {
