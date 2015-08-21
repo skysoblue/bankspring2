@@ -15,7 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="update" parameterType="Member" >
         update member set password=#{password}, 
-                          email=#{email} 
+                          email=#{email},
+                          profile=#{profile} 
         where userid=#{userid}
     </update>
     

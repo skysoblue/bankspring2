@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bankspring.domain.MemberDto;
 import com.bankspring.factory.Command;
 import com.bankspring.factory.CommandFactory;
 import com.bankspring.serviceImpl.MemberServiceImpl;
+import com.bankspring.util.FileUpload;
 
 @Controller
 @SessionAttributes("user")
@@ -57,27 +59,29 @@ public class MemberController {
 		return "auth/member/update.tiles";
 	}
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String update(@ModelAttribute("user") MemberDto user,
-			SessionStatus status,
+	public String update(
+			@RequestParam(value="file",required=false) MultipartFile multipartFile,
 			@RequestParam(value="email",required=false) String email,
 			@RequestParam(value="password") String password,
-			Model model){
+			@ModelAttribute("user") MemberDto user)throws Exception{
 		
-		user.setEmail(email);
-		user.setPassword(password);
-		model.addAttribute("member",user);
-		int result = memberService.update(user);
-		logger.info("수정 후 결과보기 {}", result);
-		String searchKey = "userid";
-		String searchVal = user.getUserid();
-		if (result != 0) { // update 를 성공했다면
-			member = memberService.detail(CommandFactory.detail(searchKey, searchVal));
-	    	model.addAttribute("user", member); // 세션에 업데이트된 정보를 담는다
-			model.addAttribute("member",member);
-			return "auth/member/detail.tiles";
-		} else {
-			return "auth/member/update.tiles";
-		}
+		logger.info("[컨트롤러 : 수정] 파일={}",multipartFile.toString());
+		logger.info("[컨트롤러 : 수정] 비번={}",password);
+		logger.info("[컨트롤러 : 수정] 이메일={}",email);
+		/* 파일 정보*/
+		String path = "C:\\Users\\admin\\git\\bankspring2\\bankSpring\\src\\main\\webapp\\resources\\image\\member\\";
+		String fileName = multipartFile.getOriginalFilename();
+		FileUpload fileUpload = new FileUpload();
+		String fullPath = fileUpload.uploadFile(multipartFile, path, fileName);
+		logger.info("[컨트롤러 : 수정] 파일업로드 경로={}",fullPath);
+		logger.info("[컨트롤러 : 수정] 파일이름={}",fileName);
+		member.setEmail(email);
+		member.setPassword(password);
+		member.setProfile(fileName);
+		int ok = memberService.update(member);
+		logger.info("[컨트롤러 : 수정] 1 이면 수정성공={}", ok);
+		
+		return "redirect:/member/mypage/"+member.getUserid();
 		
 	}
 	//******************************************

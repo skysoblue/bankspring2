@@ -4,7 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <c:set var="context" value="${root}/resources"></c:set>
-<div class="box">aa</div>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<div class="box"></div>
 <script type="text/javascript">
 $(function() {
 	user.detail();
@@ -16,8 +17,8 @@ user.detail = function() {
 	$.getJSON('${root}/member/mypage/${member.userid}',
 			function(data){
 				var table ="<table class='tab'>"
-					+ "<tr><td rowspan='5' style='width:30%'>"
-					+ "<img src='${context}/image/member/${member.profile}' alt='' /></td>"
+					+ "<tr><td rowspan='5' style='width:400px'>"
+					+ "<img src='${context}/image/member/${member.profile}' style='width:400px;' alt='' /></td>"
 					+ "<td>ID</td>"
 					+ "<td>${member.userid}</td></tr>"
 					+ "<tr><td>비밀번호</td>"
@@ -45,13 +46,13 @@ user.detail = function() {
 	
 }
 user.updateForm = function() {
-	$.getJSON('${root}/member/detail/${member.userid}',
+	$.getJSON('${root}/member/mypage/${member.userid}',
 			function(data){
 				$('.box').empty();
 				var form = $('.box').append("<form action='${root}/member/update' id='frm' method='post' enctype='multipart/form-data'>");
 				var table ="<table class='tab'>"
-					+ "<tr><td rowspan='4' style='width:30%'>"
-					+ "<img src='${context}/image/member/${member.profile}' alt='' /></td>"
+					+ "<tr><td rowspan='4' style='width:400px;'>"
+					+ "<img src='${context}/image/member/${member.profile}' style='width:400px;' alt='' /></td>"
 					+ "<td>ID</td>"
 					+ "<td>${member.userid}</td></tr>"
 					+ "<tr><td>비밀번호</td>"
@@ -72,18 +73,20 @@ user.updateForm = function() {
 					$('#frm').html(table);
 					$('#frm').submit(function(e) {
 						e.preventDefault();
-						var postData = new FormData($('#frm'));
+						var form = $('#frm')[0];
+						var postData = new FormData(form);
+						
 						$.ajax({
 							url : '${root}/member/update',
 							type : 'post',
 							data : postData,
-							async : false,
+							async : true, /* 비동기를 활성화 */
 							dataType : 'json',
 							mimeType : 'multipart/form-data',
-							processType : false,
+							processData : false,
 							contentType : false,
 							success : function(data) {
-								alert('데이터 : '+data);
+								user.detail();
 							},
 							error : function(xhr, status, msg){
 								alert(' 에러 발생 상태:'+status + ' 내용:'+msg);
